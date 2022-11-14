@@ -26,8 +26,7 @@ type Node struct {
 	Password       string           `yaml:"password"`
 	CallbackShells []*CallbackShell `yaml:"callback-shells"`
 	Children       []*Node          `yaml:"children"`
-	//Jump           []*Node          `yaml:"jump"`
-	ProxyHost string `yaml:"proxyhost"`
+	ProxyHost      string           `yaml:"proxyhost"`
 }
 
 type CallbackShell struct {

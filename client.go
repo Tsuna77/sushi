@@ -132,10 +132,10 @@ func (c *defaultClient) Login() {
 	host := c.node.Host
 	proxyHost := c.node.ProxyHost
 	port := strconv.Itoa(c.node.port())
-	//jNodes := c.node.Jump
 
 	var client *ssh.Client
 
+	//ProxyJump if defined proxyHost
 	if proxyHost != "" {
 		jc := genSSHConfig(c.node)
 		proxyClient, err := ssh.Dial("tcp", net.JoinHostPort(c.node.ProxyHost, strconv.Itoa(c.node.port())), jc.clientConfig)
@@ -154,6 +154,7 @@ func (c *defaultClient) Login() {
 			return
 		}
 		client = ssh.NewClient(ncc, chans, reqs)
+		// classical connection otherwise
 	} else {
 		client1, err := ssh.Dial("tcp", net.JoinHostPort(host, port), c.clientConfig)
 		client = client1
@@ -173,45 +174,6 @@ func (c *defaultClient) Login() {
 					client, err = ssh.Dial("tcp", net.JoinHostPort(host, port), c.clientConfig)
 				}
 			}
-
-			/*if len(jNodes) > 0 {
-				jNode := jNodes[0]
-				jc := genSSHConfig(jNode)
-				proxyClient, err := ssh.Dial("tcp", net.JoinHostPort(jNode.ProxyHost, strconv.Itoa(jNode.port())), jc.clientConfig)
-				if err != nil {
-					l.Error(err)
-					return
-				}
-				conn, err := proxyClient.Dial("tcp", net.JoinHostPort(host, port))
-				if err != nil {
-					l.Error(err)
-					return
-				}
-				ncc, chans, reqs, err := ssh.NewClientConn(conn, net.JoinHostPort(host, port), c.clientConfig)
-				if err != nil {
-					l.Error(err)
-					return
-				}
-				client = ssh.NewClient(ncc, chans, reqs)
-			} else {
-				client1, err := ssh.Dial("tcp", net.JoinHostPort(host, port), c.clientConfig)
-				client = client1
-				if err != nil {
-					msg := err.Error()
-					// use terminal password retry
-					if strings.Contains(msg, "no supported methods remain") && !strings.Contains(msg, "password") {
-						fmt.Printf("%s@%s's password:", c.clientConfig.User, host)
-						var b []byte
-						b, err = terminal.ReadPassword(int(syscall.Stdin))
-						if err == nil {
-							p := string(b)
-							if p != "" {
-								c.clientConfig.Auth = append(c.clientConfig.Auth, ssh.Password(p))
-							}
-							fmt.Println()
-							client, err = ssh.Dial("tcp", net.JoinHostPort(host, port), c.clientConfig)
-						}
-					}*/
 		}
 		if err != nil {
 			l.Error(err)
