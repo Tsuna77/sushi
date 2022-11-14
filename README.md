@@ -12,17 +12,11 @@ A ssh connection manager with ProxyJump. This is a free to use application and d
 
 
 
-## install
+## Install
 
-use `go get`
+Download binary from [releases](//github.com/yatoub/sushi/releases) and extract it where you want.
 
-```
-go get -u github.com/yatoub/sushi/cmd/sushi
-```
-
-or download binary from [releases](//github.com/yatoub/sushi/releases).
-
-## config
+## Configuration
 
 config file load in following order:
 
