@@ -5,6 +5,12 @@
 A ssh connection manager with ProxyJump. This is a free to use application and does not comes with any warranty. 
 
 ![GitHub](https://img.shields.io/github/license/yatoub/sushi)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/yatoub/sushi)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yatoub/sushi)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yatoub/sushi/goreleaser)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/yatoub/sushi)
+
+
 
 ## install
 
